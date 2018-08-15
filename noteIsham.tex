@@ -1,0 +1,131 @@
+\documentclass[]{article}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[colorlinks]{hyperref}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\newcommand{\intprod}{\mathbin{\raisebox{\depth}{\scalebox{1}[-1]{$\lnot$}}}}% per fare l'hook della formula di Cartan
+
+%opening
+\title{Brevissime note a corredo di Isham}
+\author{Bruno Bucciotti}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Il libro di Isham di geometria differenziale è molto chiaro ma lascia qualche esercizio al lettore (per fortuna piuttosto agile) e ho pensato di svolgerne alcuni. Per le pagine si fa riferimento alla seconda edizione. Ogni tanto vengono fatte anticipazioni (ad esempio alcuni commenti sulle derivazioni): sono saltabili ad una prima lettura.
+\end{abstract}
+
+\section{Spazio tangente}
+\subparagraph{Una funzione $f:\mathcal{M} \rightarrow \mathcal{N}$ è $C^\infty$ controllando una sola carta (p.70)}
+Supponiamo $x,\, x_2$ carte per $U \in \mathcal{M}$ e analogamente $y$ per $\mathcal{N}$. Allora supponiamo di sapere che $y \circ f \circ x^{-1}$ è liscia (ho controllato fissando una carta per ciascun spazio). Ho che $$y_2 \circ f \circ x_2^{-1} = (y_2 \circ y^{-1}) \circ (y \circ f \circ x_2^{-1}) \circ (x_2 \circ x^{-1})$$ e queste 3 sono tutte liscie (2 sono cambi carta, lisci per Hp); notare che non hanno varietà nè come dominio nè come codominio.
+
+\subparagraph{Due curve tangenti sono tali in ogni carta (p.73)}
+$\sigma_1 (0) = \sigma_2 (0) = p$. So che in una carta $(x \circ \sigma_1)'(0) = (x \circ \sigma_2)'(0)$. Se $y$ è un'altra carta che copre $p$ ho che $(x \circ \sigma_1)'(0) = (x \circ y^{-1} \circ y \circ \sigma_1)'(0)$. Ora ha senso applicare la regola della catena (su $R^n$) e ho $(x \circ y^{-1})'[(y \circ \sigma_1)(0)] * (y \circ \sigma_1)'(0)$. Procedendo analogamente per $(x \circ \sigma_2)'(0)$ ho che (usando la seconda ipotesi per l'uguale)
+$$ (x \circ y^{-1})'[(y \circ \sigma_1)(0)] * (y \circ \sigma_1)'(0) = (x \circ y^{-1})'[(y \circ \sigma_2)(0)] * (y \circ \sigma_2)'(0)$$
+Il primo fattore ad ambo i lati è uguale  per la prima Hp, inoltre è la matrice jacobiana di un cambio carta in un punto, dunque è invertibile per ipotesi (cambi carta sono diffeomorfismi), dunque i due vettori tangenti sono uguali.
+
+\subparagraph{Cambio curva per la derivata direzionale (p.75)}
+$v = [\sigma],\, \sigma_2 \in [\sigma]$. $f$ funzione da derivare lungo $v$.
+$$v(f) = (f \circ \sigma)'(0) = (f \circ x^{-1} \circ x \circ \sigma)'(0) = (f \circ x^{-1})'[(x \circ \sigma)(0)] * (x \circ \sigma)'(0)$$
+Ora per l'ipotesi di equivalenza fra le curve è uguale scambiare $\sigma$ con $\sigma_2$ e, ripercorrendo i passaggi al contrario, ottengo di nuovo $v(f)$ che quindi è ben definito.
+
+\subparagraph{Remark: Curve come spazio vettoriale}
+Un punto non ovvio (e tedioso) della costruzione del tangente con le classi di curve è la questione del come definire prodotto per scalare e soprattutto somma di due curve. Il trucco è portare le curve su $R^n$ con una carta, sommarle in modo maiale usando la struttura di spazio vettoriale di $R^n$ e poi tornare indietro sulla varietà.
+
+\subparagraph{Remark: push-forward}
+Il push-forward è una mappa lineare che, date due varietà $\mathcal{M},\,\mathcal{N}$ con $\psi: \mathcal{M} \rightarrow \mathcal{N}$, "spinge" un vettore $v$ tangente in $p\in \mathcal{M}$ in un vettore $w$ tangente in $\psi(p)$. Voglio definire $w(f)$. Vedendo i vettori tangenti come curve basta dire che applico $\psi$ alle curve, vedendoli come derivazioni basta comporre la funzione $f: \mathcal{N}\rightarrow \mathbf{R}$ con $\psi$ e ho una funzione $(f \circ \psi): \mathcal{M} \rightarrow \mathbf{R}$ a cui è lecito applicare la derivazione $v$, $w(f) := v(f\circ \psi)$.
+
+\subparagraph{Il push-forward è lineare (p.78)}
+Nota: la dimostrazione è banale per le derivazioni.
+Faccio solo la somma di due curve senza i coefficienti generici e considero due curve rappresentanti di altrettanti vettori tangenti. L'indipendenza dalla scelta del rappresentante è garantita dal punto 1 p.78. Le due curve si intersecano in $p$ per $t=0$ e $h(p) = q$; $p$ e $q$ sono l'origine in carta. Sommo i push-forward:
+$$y^{-1} [y(h_*(\sigma_1)) + y(h_*(\sigma_2))] = y^{-1} [(y \circ h \circ \sigma_1) + (y \circ h \circ \sigma_2)]$$
+Push-forward della somma:
+$$h_*[x^{-1}(x \circ \sigma_1 + x \circ \sigma_2)] = (h \circ x^{-1})(x \circ \sigma_1 + x \circ \sigma_2)$$
+Le due curve sono in generale diverse, ma sono tangenti. Dimostrazione: entrambe valgono $q$ per $t=0$. Inoltre devo verificare che, componendo $y$ a sinistra e derivando in $t$, il vettore ottenuto in $t=0$ sia lo stesso. Dalla prima espressione ho
+$$(y \circ h \circ \sigma_1 + y \circ h \circ \sigma_2)'(0) = (y \circ h \circ x^{-1} \circ x \circ \sigma_1)'(0) + (y \circ h \circ x^{-1} \circ x \circ \sigma_2)'(0) =$$
+$$(y \circ h \circ x^{-1})'(0) (x \circ \sigma_1)'(0) + (y \circ h \circ x^{-1})'(0) (x \circ \sigma_2)'(0)$$
+Dove si è usata la regola per la derivata della sommma e la regola della catena. Ora la linearità del differenziale porta a
+$$(y \circ h \circ x^{-1})'(0) (x \circ \sigma_1 + x \circ \sigma_2)'(0)$$
+Che è ciò che volevamo.
+
+\subparagraph{Remark: derivazioni}
+A pagina 84 si usa un lemma, che esprime il valore di $f$ in $q$ come il valore in $p$ + correzioni date dalle derivate, per affrontare il problema del calcolare $v(f)$ in $p$ nota l'azione di $v$ sulle coordinate di base. La formula che si ottiene è analoga alla regola della catena usuale: $\partial_v f = \sum \frac{\partial f}{\partial x^\mu} \partial_v x^\mu$ scriveremmo in $R^n$. Inoltre la formula evidenzia che qualunque derivazione si può scrivere come combinazione lineare di derivazioni di base, dove i coefficienti sono ciò che usualmente si indica come "componenti del vettore" $\xi^\mu$.\\
+Un altro problema è il come passare dall'approccio "curve" all'approccio "derivazioni". Data una curva la derivazione si ottiene banalmente; il viceversa merita un conto esplicito (p.86). Parto con $v$ derivazione, $v = \sum v(x^\mu) \frac{\partial}{\partial x^\mu}|_p$. Costruisco $\sigma = x^{-1} (v(x^1) t, .., v(x^n)t)$. In $0$ fa correttamente $p$. Provo a derivarci $f$.
+$$(f \circ \sigma)'(0) = [(f \circ x^{-1}) (v(x^1) t, ..)]'(0) = \sum \frac{\partial (f \circ x^{-1})}{\partial x^\mu} \frac{d (v(x^\mu) t)}{dt} = \sum v(x^\mu) \frac{\partial}{\partial x^\mu}|_p f$$
+che è $v(f)$ come atteso.
+
+\paragraph{Campi vettoriali e 1-forme in coordinate}
+\subparagraph{Campi vettoriali (p.84)}
+In ogni punto $p$ della varietà vi è una base di derivazioni $\dfrac{\partial}{\partial x^\mu}$ che agiscono così: $\dfrac{\partial f}{\partial x^\mu} (p) := \dfrac{\partial (f \circ x^{-1})}{\partial x^\mu} (x(p))$ con $x$ carta e il simbolo di derivata a destra è la derivata in $\mathbf{R}^n$. $X_p (x^\mu) = \sum X^\nu \dfrac{\partial}{\partial x^\nu}x^\mu = X^\mu$ dove $X^\mu$ sono le coordinate del campo vettoriale $X$ nella base data da $x$. Allora $X_p(f) = \sum X^\nu \dfrac{\partial}{\partial x^\nu}f = \sum X^\nu f_{,\nu}$
+\subparagraph{1 forme (p.125)}
+Stessa cosa, ma per convenzione gli indici sono scambiati alto-basso (così funziona meglio la convenzione di Einstein). $\omega(X) = \sum \omega_\nu dx^\nu X^\mu \dfrac{\partial}{\partial x^\mu} = \sum \omega_\nu X^\nu$ con $\omega_\mu = \omega (\dfrac{\partial}{\partial x^\mu})$
+
+\section{Derivata di Lie}
+Tutto è definito limitandosi ai nostri scopi, ma sono possibili generalizzazioni.
+\paragraph{Pull-back}
+\subparagraph{di funzioni}
+Data una funzione $f: \mathcal{N} \rightarrow \mathbf{R}$ e $h: \mathcal{M} \rightarrow \mathcal{N}$ voglio "tirare indietro" $f$ e ottenere una funzione definita su $\mathcal{M}$. Questo è facile: definiamo pull-back di $f$ lungo $h$, $(h^*f)(p) = (f \circ h)(p)$, $p \in \mathcal{M}$.
+\subparagraph{di campo vettoriale}
+Dato un campo vettoriale $Y$ definito su $\mathcal{N}$ e $h: \mathcal{M} \rightarrow \mathcal{N}$ vorrei definire pull-back di $Y$ un campo vettoriale $X$ su $\mathcal{M}$ h-related a $Y$, cioè tale che $h_*(X(p)) = Y(h(p))$, $p \in \mathcal{M}$. Purtroppo non è detto che esista, quindi facciamo l'ipotesi (non ottimale) che h sia diffeomorfismo. Allora
+$(h^{-1} \circ h)_*(X(p)) = X(p) = h^{-1}_* (h_*(X(p))) = h^{-1}_*(Y(h(p)))$. Dunque abbiamo una definizione per $X$ come push-forward di $Y$ mediante $h^{-1}$: $(h^*Y)(p) = h^{-1}_*(Y(h(p)))$.
+
+\paragraph{General remark}
+Ora applicheremo questi due concetti per definire la derivata di Lie di funzioni e campi vettoriali. Useremo $\phi(t, p)$ che, fissato $p$, è la curva integrale di $X$ con $\phi(0,p) = p$. $\phi_t(p)$ e $\phi_p(t)$ sono $\phi$ considerando fissata una variabile. In particolare $\phi_p$ è un diffeomorfismo per $t$ piccoli e verrà usato per comparare quantità in punti diversi.
+La derivata di Lie in $p$ lungo $X$ di un oggetto $Y$ compara l'oggetto in $\phi(t, p)$ tirato indietro in $p$ con l'oggetto in $p$.
+
+\paragraph{Derivata di Lie di funzioni}
+$\mathcal{L}_X (f) (p) := \lim_{t\rightarrow 0} \dfrac{\phi_t^*f - f}{t} (p) =\\ \lim_{t\rightarrow 0} \dfrac{(f \circ \phi_t)(p) - f(p)}{t} = \lim_{t\rightarrow 0} \dfrac{(f \circ \phi_p)(t) - (f \circ \phi_p)(0)}{t} = \dfrac{d}{dt} (f \circ \phi_p)|_0 = \\ (X(p)) (f) = (Xf)(p)$
+dove in fondo si utilizza che $\phi_p$ è curva integrale di $X$, passando dalle curve alle derivazioni.
+
+\paragraph{Derivata di Lie di campi vettoriali}
+$[\mathcal{L}_X (Y)(f)] (p) := \lim_{t\rightarrow 0} \dfrac{(\phi_t^*Y)f - Yf}{t} (p) =\\
+\lim_{t\rightarrow 0} \dfrac{(\phi_t^{-1})_* (Y(\phi_tp))f - (Yf)(p)}{t} = \lim_{t\rightarrow 0} \dfrac{Y(\phi_t p)(f \circ \phi_{-t}) - Y(p) f}{t} =\\
+\lim_{t\rightarrow 0} Y_{\phi_t p}\left(\dfrac{(f \circ \phi_{-t}) - f}{t}\right) + \left( \dfrac{Y_{\phi_t p} - Y_p}{t} \right) f =\\
+ Y_{\phi_0p} (-Xf) + \lim_{t\rightarrow 0} \dfrac{(Yf)(\phi_p(t)) - (Yf)(\phi_p(0))}{t} = -Y(Xf) (p) + X(Yf) (p) =
+ \left[X, Y\right](f) (p)$\\
+dove uso la definizione di pull-back, che $\phi_t^{-1} = \phi_{-t}$, definizione di push-forward, sommare zero, definizione di derivata, ..
+
+\section{Forme}
+Vivono nel fibrato cotangente. La fibra di cui è fatto il cotangente è lo spazio vettoriale duale al tangente. La base duale a $\dfrac{\partial}{\partial x^\mu}$ è $dx^\mu$. Il pullback è un funtore controvariante, cioè $(f \circ g)^* = g^* \circ f^*$. $\omega(X)$ si indica anche $<\omega, X>$
+
+\subparagraph{Pullback di 1-forme}
+$h: \mathcal{M} \rightarrow \mathcal{N}$ e $\omega$ 1-forma su $\mathcal{N}$, allora il pullback di $\omega$, indicato $h^*\omega$, è tale che per ogni $X$ campo su $\mathcal{M}$ $(h^*\omega)(X)_{p} = \omega(h_* X)_{h(p)}$. Mentre per il push-forward serve l'iniettività di $h$, qui al massimo si deve richiedere $h$ suriettiva se si vuole che il pullback sia definito su tutto $\mathcal{TN^*}$
+
+\subparagraph{Pullback di k-forme}
+$h: \mathcal{M} \rightarrow \mathcal{N}$ e $\omega$ k-forma su $\mathcal{N}$, allora $h^*\omega$ è tale che per ogni $X_1,\, ..,\, X_k$ su $\mathcal{M}$ si abbia $(h^*\omega)(X_1,..,X_k)_{p} = \omega(h_* X_1,..,h_* X_k)_{h(p)}$.
+
+\subparagraph{Derivata esterna}
+$d$ mappa linearmente k forme in k+1 forme. E' completamente caratterizzata da:
+\begin{itemize}
+	\item Sulle funzioni $df$ è il differenziale: $df = f_{,\mu} dx^\mu$
+	\item Vale Leibnitz con $\alpha$ forma e $f$ funzione: $d(fa)= df \wedge a + f da$
+	\item $d$ commuta con il pullback: $\phi^{\ast} \circ d = d \circ \phi^{\ast}$
+\end{itemize}
+Valgono inoltre che $d^2=0$, e se $\alpha$ k-forma allora $d(\alpha \wedge \beta) = d\alpha \wedge \beta + (-1)^k (\alpha \wedge d\beta)$.
+Concretamente data una k-forma $\omega = g dx^I$ ho $d\omega = \dfrac{\partial  g}{\partial x^\mu} dx^\mu \wedge dx^I$.\\
+
+\paragraph{Formula per la derivata esterna}
+\subparagraph{Formula generale}
+Sia $\omega$ k forma. $(..,\hat{V_i},.., \hat{V_j},..)$ significa tutti i vettori in ordine tranne quei 2.
+$$(d\omega)(V_0, .., V_k) = \sum_{i=0}^{k} (-1)^i V_i \omega(..,\hat{V_i},..) + \sum_{i<j}^{k} (-1)^{i+j} \omega([V_i, V_j],V_0,..,\hat{V_i},..,\hat{V_j},..)$$
+\subparagraph{Casi particolari}
+\begin{itemize}
+	\item 0-forma: $(df)(X) = X(f)$
+	\item 1-forma: $(d\alpha)(V_0,V_1) = V_0\alpha(V_1) - V_1\alpha(V_0) - \alpha([V_0, V_1])$
+	\item 2-forma: $(d\sigma)(V_0, V_1, V_2) = V_0\sigma(V_1,V_2) - V_1\sigma(V_0,V_2) + V_2\sigma(V_0,V_1) - \sigma([V_0,V_1],V_2) + \sigma([V_0,V_2],V_1) - \sigma([V_1,V_2],V_0)$
+\end{itemize}
+
+\subparagraph{Interior product}
+Data una k forma $\omega$ e un campo vettoriale $X$ ho la (k-1) forma $(i_X \omega)(X_2, .., X_k) = \omega(X, X_2, .. , X_k)$. Si indica anche $X \intprod \omega$. Vale la formula di Cartan: $\mathcal{L}_X = d i_X + i_X d$
+
+\subparagraph{Fatti utili su $\mathcal{L}_X(\omega)$, $\omega$ 1 forma (p.131)}
+\begin{itemize}
+	\item $\dfrac{d}{dt} \phi_t^{X*} \omega |_{t=s} = \phi_s^{X*} (\mathcal{L}_X\omega)$
+	\item $\mathcal{L}_X<\omega, Y>\, =\, <\mathcal{L}_X \omega, Y> + <\omega, \mathcal{L}_X Y>$
+	\item $(\mathcal{L}_X \omega)_\mu = \sum \omega_{\mu,\nu} X^\nu + \omega_\nu X^\nu_{,\mu}$
+\end{itemize}
+
+\end{document}
